@@ -2,7 +2,7 @@
   "name": "hearth",
   "displayName": "Hearth",
   "description": "A warm-duotone theme by Ryan Furrer: cool near-monochrome neutrals for structure, one ember-orange accent for meaning, optional teal or azure for callables. Light + dark, six variants.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "ryanfurrer",
   "author": { "name": "Ryan Furrer", "url": "https://ryanfurrer.com" },
   "license": "MIT",

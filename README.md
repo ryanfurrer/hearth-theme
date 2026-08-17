@@ -62,8 +62,8 @@ Then `Cmd/Ctrl + K` `Cmd/Ctrl + T` and pick any of the six.
 **From a `.vsix`** (to sideload in VS Code, Cursor, or VSCodium):
 
 ```bash
-code --install-extension hearth-0.1.0.vsix      # VS Code
-cursor --install-extension hearth-0.1.0.vsix    # Cursor
+code --install-extension hearth-0.1.1.vsix      # VS Code
+cursor --install-extension hearth-0.1.1.vsix    # Cursor
 ```
 
 …or in the editor: Extensions panel → `···` → **Install from VSIX…**.
