@@ -3,4 +3,3 @@
 .context/**
 *.vsix
 .DS_Store
-PUBLISHING.md

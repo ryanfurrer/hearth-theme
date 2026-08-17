@@ -1,8 +1,8 @@
 {
   "name": "hearth",
   "displayName": "Hearth",
-  "description": "A warm-duotone theme by Ryan Furrer: cool near-monochrome neutrals for structure, one ember-orange accent for meaning, optional teal or azure for callables. Light + dark, six variants.",
-  "version": "0.1.1",
+  "description": "A warm color theme for Visual Studio Code with six light and dark variants.",
+  "version": "0.1.2",
   "publisher": "ryanfurrer",
   "author": { "name": "Ryan Furrer", "url": "https://ryanfurrer.com" },
   "license": "MIT",
