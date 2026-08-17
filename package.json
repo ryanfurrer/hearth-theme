@@ -1,0 +1,61 @@
+{
+  "name": "hearth",
+  "displayName": "Hearth",
+  "description": "A warm-duotone theme by Ryan Furrer: cool near-monochrome neutrals for structure, one ember-orange accent for meaning, optional teal or azure for callables. Light + dark, six variants.",
+  "version": "0.1.0",
+  "publisher": "ryanfurrer",
+  "author": { "name": "Ryan Furrer", "url": "https://ryanfurrer.com" },
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": { "vscode": "^1.70.0" },
+  "categories": ["Themes"],
+  "keywords": ["theme", "color-theme", "warm", "duotone", "oklch", "orange", "ember", "hearth"],
+  "homepage": "https://github.com/ryanfurrer/hearth-theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanfurrer/hearth-theme.git"
+  },
+  "bugs": { "url": "https://github.com/ryanfurrer/hearth-theme/issues" },
+  "galleryBanner": { "color": "#0a0a0b", "theme": "dark" },
+  "scripts": {
+    "build": "node build.mjs",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.0.0"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Hearth Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/hearth-dark.json"
+      },
+      {
+        "label": "Hearth Dark · Teal",
+        "uiTheme": "vs-dark",
+        "path": "./themes/hearth-dark-teal.json"
+      },
+      {
+        "label": "Hearth Dark · Azure",
+        "uiTheme": "vs-dark",
+        "path": "./themes/hearth-dark-azure.json"
+      },
+      {
+        "label": "Hearth Light",
+        "uiTheme": "vs",
+        "path": "./themes/hearth-light.json"
+      },
+      {
+        "label": "Hearth Light · Teal",
+        "uiTheme": "vs",
+        "path": "./themes/hearth-light-teal.json"
+      },
+      {
+        "label": "Hearth Light · Azure",
+        "uiTheme": "vs",
+        "path": "./themes/hearth-light-azure.json"
+      }
+    ]
+  }
+}

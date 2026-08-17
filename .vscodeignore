@@ -1,0 +1,5 @@
+.gitignore
+.git/**
+*.vsix
+.DS_Store
+PUBLISHING.md
