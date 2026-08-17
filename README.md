@@ -52,14 +52,14 @@ intentionally recessive (dark comments sit near 3.3:1 by design so they fade bac
 
 ## Install
 
-**From within your editor** once published:
+**From the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=RyanFurrer.hearth):**
 
-- **VS Code** → Extensions → search **Hearth** → Install
-- **Cursor / VSCodium** → Extensions (Open VSX) → search **Hearth** → Install
+- Select **Install**, or open Extensions in VS Code, search **Hearth**, and select
+  **Install**.
 
 Then `Cmd/Ctrl + K` `Cmd/Ctrl + T` and pick any of the six.
 
-**From a `.vsix`** (before publishing, or to sideload):
+**From a `.vsix`** (to sideload in VS Code, Cursor, or VSCodium):
 
 ```bash
 code --install-extension hearth-0.1.0.vsix      # VS Code

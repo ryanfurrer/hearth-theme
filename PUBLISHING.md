@@ -28,11 +28,9 @@ The Marketplace runs on Azure DevOps, so the account chain is:
 **Microsoft account → Azure DevOps organization → Marketplace publisher → PAT.**
 
 1. **Azure DevOps organization** — sign in at <https://dev.azure.com> with your
-   Microsoft account and create an organization if you don't have one. (This is the
-   step that was erroring; you only need it once, and any org name works — it's just
-   the tenant the token is scoped to. If org creation keeps failing, try a different
-   region in the create dialog, or retry later; it's an Azure-side hiccup, not a
-   config problem on our end.)
+   Microsoft account and create an organization if you don't have one. You only
+   need it once, and any organization name works; it is the tenant the token is
+   scoped to.
 
 2. **Personal Access Token (PAT)** — at <https://dev.azure.com>, top-right avatar →
    **Security** → **Personal access tokens** → **New Token**:
