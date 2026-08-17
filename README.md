@@ -68,6 +68,45 @@ cursor --install-extension hearth-0.1.0.vsix    # Cursor
 
 …or in the editor: Extensions panel → `···` → **Install from VSIX…**.
 
+## Use with Shiki
+
+VS Code themes are valid [Shiki](https://shiki.style) themes, so every file in
+`themes/` doubles as a Shiki theme — no separate build, no separate repo. Import
+the JSON straight into a highlighter:
+
+```ts
+import { createHighlighter } from "shiki";
+import hearthLightTeal from "./themes/hearth-light-teal.json";
+import hearthDarkTeal from "./themes/hearth-dark-teal.json";
+
+const hl = await createHighlighter({
+  themes: [hearthLightTeal, hearthDarkTeal], // registered by their `name`
+  langs: ["ts"],
+});
+
+// single theme…
+const html = hl.codeToHtml(code, { lang: "ts", theme: "Hearth Dark · Teal" });
+
+// …or light/dark dual theme (Shiki emits parallel --shiki-dark CSS vars):
+const dual = hl.codeToHtml(code, {
+  lang: "ts",
+  themes: { light: "Hearth Light · Teal", dark: "Hearth Dark · Teal" },
+});
+```
+
+All six are available — pick a flavor by importing a different pair:
+
+| Flavor  | Light                     | Dark                     |
+| ------- | ------------------------- | ------------------------ |
+| Duotone | `hearth-light.json`       | `hearth-dark.json`       |
+| Teal    | `hearth-light-teal.json`  | `hearth-dark-teal.json`  |
+| Azure   | `hearth-light-azure.json` | `hearth-dark-azure.json` |
+
+In Astro, pass the imported objects straight to
+`<Code themes={{ light, dark }} />`. (Shiki's types mark `settings` as required
+while the runtime reads VS Code `tokenColors`; cast the objects if TypeScript
+complains — don't add an empty `settings`, it would blank out the highlighting.)
+
 ## Develop
 
 The two duotone files (`themes/hearth-dark.json`, `themes/hearth-light.json`) are
