@@ -22,7 +22,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Initial release. Six themes: **Hearth Dark / Light**, each in **Duotone**,
-  **· Teal**, and **· Azure** flavors.
+  **Teal**, and **Azure** flavors.
 - Warm-duotone palette in OKLCH — cool neutrals for structure, ember orange for
   meaning, optional teal/azure for callables.
 - Full workbench theming (editor, sidebar, tabs, terminal ANSI, git decorations,

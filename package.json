@@ -32,12 +32,12 @@
         "path": "./themes/hearth-dark.json"
       },
       {
-        "label": "Hearth Dark · Teal",
+        "label": "Hearth Dark Teal",
         "uiTheme": "vs-dark",
         "path": "./themes/hearth-dark-teal.json"
       },
       {
-        "label": "Hearth Dark · Azure",
+        "label": "Hearth Dark Azure",
         "uiTheme": "vs-dark",
         "path": "./themes/hearth-dark-azure.json"
       },
@@ -47,12 +47,12 @@
         "path": "./themes/hearth-light.json"
       },
       {
-        "label": "Hearth Light · Teal",
+        "label": "Hearth Light Teal",
         "uiTheme": "vs",
         "path": "./themes/hearth-light-teal.json"
       },
       {
-        "label": "Hearth Light · Azure",
+        "label": "Hearth Light Azure",
         "uiTheme": "vs",
         "path": "./themes/hearth-light-azure.json"
       }

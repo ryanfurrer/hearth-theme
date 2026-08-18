@@ -35,7 +35,7 @@ for (const mode of ["dark", "light"]) {
   for (const [title, palette] of Object.entries(ACCENTS)) {
     const { fn, type } = palette[mode];
     const theme = structuredClone(base);
-    theme.name = `${base.name} · ${title}`;
+    theme.name = `${base.name} ${title}`;
 
     for (const tc of theme.tokenColors) {
       if (hasScope(tc, "entity.name.function")) tc.settings.foreground = fn;
