@@ -2,6 +2,7 @@
 .git/**
 .github/**
 .context/**
+.env*
 build.mjs
 package-lock.json
 scripts/**

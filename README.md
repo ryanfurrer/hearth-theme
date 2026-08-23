@@ -37,13 +37,16 @@ After installing, open the color theme picker with `Cmd/Ctrl + K`, then
 
 ### Cursor
 
-Download [hearth-latest.vsix](https://github.com/ryanfurrer/hearth-theme/releases/latest/download/hearth-latest.vsix),
-open Cursor's Extensions panel, choose **Install from VSIX…** from the `…` menu,
-and select the downloaded file. Then open the color theme picker and choose a
-Hearth theme.
+Open Cursor's Extensions panel, search for **Hearth**, and click **Install**.
 
-Hearth is also available from
-[Open VSX](https://open-vsx.org/extension/ryanfurrer/hearth/changes).
+You can also find Hearth on
+[Open VSX](https://open-vsx.org/extension/ryanfurrer/hearth/changes). To sideload
+the extension instead, download
+[hearth-latest.vsix](https://github.com/ryanfurrer/hearth-theme/releases/latest/download/hearth-latest.vsix),
+choose **Install from VSIX…** from the Extensions panel's `…` menu, and select
+the downloaded file.
+
+After installing, open the color theme picker and choose a Hearth theme.
 
 ### Zed
 
