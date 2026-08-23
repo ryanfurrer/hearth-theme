@@ -63,4 +63,4 @@ Warp themes from the same source palettes.
 ## License
 
 Hearth was made by [Ryan Furrer](https://ryanfurrer.com) and is available under
-the [MIT License](./LICENSE.txt).
+the [MIT License](./LICENSE).

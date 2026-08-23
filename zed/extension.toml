@@ -1,7 +1,7 @@
-id = "hearth"
+id = "hearth-theme"
 name = "Hearth"
-version = "0.1.2"
+version = "0.2.0"
 schema_version = 1
 authors = ["Ryan Furrer"]
-description = "A warm color theme with six light and dark variants."
+description = "A warm color theme for Zed with six light and dark variants."
 repository = "https://github.com/ryanfurrer/hearth-theme"

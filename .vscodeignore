@@ -1,6 +1,7 @@
 .gitignore
 .git/**
 .context/**
+build.mjs
 zed/**
 warp/**
 *.vsix
