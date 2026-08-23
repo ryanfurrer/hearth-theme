@@ -2,7 +2,7 @@
   "name": "hearth",
   "displayName": "Hearth",
   "description": "A warm color theme that keeps the interface calm and lights the code with a single ember.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "ryanfurrer",
   "author": { "name": "Ryan Furrer", "url": "https://ryanfurrer.com" },
   "license": "MIT",
