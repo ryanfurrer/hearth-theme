@@ -1,0 +1,185 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish or retry
+        required: true
+        type: string
+
+concurrency:
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+
+jobs:
+  build:
+    name: Validate and package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Regenerate theme families
+        run: npm run build
+
+      - name: Reject generated-file drift
+        run: git diff --exit-code -- themes zed/themes warp
+
+      - name: Validate release
+        run: npm run validate:release -- "${RELEASE_TAG#v}"
+
+      - name: Package VSIX
+        run: npm run package
+
+      - name: Verify VSIX
+        run: |
+          unzip -t hearth-latest.vsix
+          sha256sum hearth-latest.vsix | tee hearth-latest.vsix.sha256
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: hearth-vsix
+          path: |
+            hearth-latest.vsix
+            hearth-latest.vsix.sha256
+          if-no-files-found: error
+          retention-days: 30
+
+  github-release:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download release artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: hearth-vsix
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" \
+              hearth-latest.vsix \
+              hearth-latest.vsix.sha256 \
+              --clobber \
+              --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$RELEASE_TAG" \
+              hearth-latest.vsix \
+              hearth-latest.vsix.sha256 \
+              --generate-notes \
+              --latest \
+              --title "Hearth $RELEASE_TAG" \
+              --repo "$GITHUB_REPOSITORY"
+          fi
+
+  marketplace:
+    name: Publish Visual Studio Marketplace
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: hearth-vsix
+
+      - name: Require Marketplace credentials
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: test -n "$VSCE_PAT"
+
+      # Azure DevOps global PATs retire on December 1, 2026. Migrate this job
+      # to `vsce publish --azure-credential` before then.
+      - name: Publish to Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npm exec -- vsce publish --packagePath hearth-latest.vsix --skip-duplicate
+
+  open-vsx:
+    name: Publish Open VSX
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: hearth-vsix
+
+      - name: Require Open VSX credentials
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: test -n "$OVSX_PAT"
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: npm exec -- ovsx publish hearth-latest.vsix --skip-duplicate
+
+  refresh-landing-page:
+    name: Refresh Hearth landing page
+    needs: github-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require Vercel deploy hook
+        env:
+          PORTFOLIO_DEPLOY_HOOK: ${{ secrets.PORTFOLIO_DEPLOY_HOOK }}
+        run: test -n "$PORTFOLIO_DEPLOY_HOOK"
+
+      - name: Trigger production rebuild
+        env:
+          PORTFOLIO_DEPLOY_HOOK: ${{ secrets.PORTFOLIO_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --request POST "$PORTFOLIO_DEPLOY_HOOK"

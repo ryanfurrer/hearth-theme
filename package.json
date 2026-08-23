@@ -19,11 +19,16 @@
   "galleryBanner": { "color": "#0a0a0b", "theme": "dark" },
   "scripts": {
     "build": "node build.mjs",
+    "validate:release": "node scripts/validate-release.mjs",
     "vscode:prepublish": "npm run build",
     "package": "vsce package --no-dependencies --out hearth-latest.vsix"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.0.0"
+    "@iarna/toml": "2.2.5",
+    "@vscode/vsce": "3.9.2",
+    "ajv": "8.20.0",
+    "ovsx": "1.1.1",
+    "yaml": "2.9.0"
   },
   "contributes": {
     "themes": [

@@ -42,8 +42,8 @@ open Cursor's Extensions panel, choose **Install from VSIX…** from the `…` m
 and select the downloaded file. Then open the color theme picker and choose a
 Hearth theme.
 
-Hearth is not on Open VSX yet, so the VSIX is the current installation path for
-Cursor.
+Hearth is also available from
+[Open VSX](https://open-vsx.org/extension/ryanfurrer/hearth/changes).
 
 ### Zed
 
@@ -87,6 +87,16 @@ Warp themes from the same source palettes.
 
 Run `npm run package` to build the sideloadable VS Code extension as
 `hearth-latest.vsix`.
+
+Pushing a `v*` tag runs the release workflow. It verifies that the tag matches
+the VS Code and Zed manifests, validates every generated theme, packages the
+VSIX once, publishes it to GitHub Releases, the VS Code Marketplace, and Open
+VSX, then triggers a fresh build of the Hearth landing page. The workflow can
+also be rerun manually for an existing tag.
+
+Maintainers configure `VSCE_PAT`, `OVSX_PAT`, and `PORTFOLIO_DEPLOY_HOOK` as
+GitHub Actions secrets. The Marketplace credential will move from an Azure
+DevOps PAT to Microsoft Entra workload identity before PAT retirement.
 
 ## License
 

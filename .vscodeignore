@@ -1,7 +1,10 @@
 .gitignore
 .git/**
+.github/**
 .context/**
 build.mjs
+package-lock.json
+scripts/**
 zed/**
 warp/**
 *.vsix
