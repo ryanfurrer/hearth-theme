@@ -1,8 +1,8 @@
 {
   "name": "hearth",
   "displayName": "Hearth",
-  "description": "A warm color theme for Visual Studio Code with six light and dark variants.",
-  "version": "0.1.2",
+  "description": "A warm color theme that keeps the interface calm and lights the code with a single ember.",
+  "version": "0.2.0",
   "publisher": "ryanfurrer",
   "author": { "name": "Ryan Furrer", "url": "https://ryanfurrer.com" },
   "license": "MIT",
@@ -10,7 +10,7 @@
   "engines": { "vscode": "^1.70.0" },
   "categories": ["Themes"],
   "keywords": ["theme", "color-theme", "warm", "duotone", "oklch", "orange", "ember", "hearth"],
-  "homepage": "https://github.com/ryanfurrer/hearth-theme",
+  "homepage": "https://hearth.ryanfurrer.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ryanfurrer/hearth-theme.git"

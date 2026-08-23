@@ -6,9 +6,19 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-08-23
+
 ### Added
 
 - Added Zed and Warp versions of all six Hearth variants.
+- Added a stable `hearth-latest.vsix` package name for Cursor and other
+  sideloaded installations.
+
+### Changed
+
+- Removed the middle-dot separator from the Azure and Teal variant names.
+- Updated the public description and installation documentation to reflect the
+  full VS Code, Cursor, Zed, Warp, and Shiki family.
 
 ## [0.1.2] — 2026-08-17
 
