@@ -6,11 +6,35 @@ Code, Cursor, Zed, Warp, and Shiki.
 
 [Explore Hearth, compare every variant, and find installation instructions](https://hearth.ryanfurrer.com/).
 
-![Hearth themes in dark and light](./preview.png)
-
 Backgrounds, text, and comments stay in calm neutrals; the warmth lives in the
 code. Keywords carry a single orange ember. Azure and Teal add one cool hue to
 functions and types, so structure stands out without turning into a rainbow.
+
+## Previews
+
+### Hearth Dark
+
+![Hearth Dark highlighting an Astro component in Cursor with orange syntax accents](./previews/hearth-dark.png)
+
+### Hearth Dark Azure
+
+![Hearth Dark Azure highlighting an Astro component in Cursor with orange and blue syntax accents](./previews/hearth-dark-azure.png)
+
+### Hearth Dark Teal
+
+![Hearth Dark Teal highlighting an Astro component in Cursor with orange and teal syntax accents](./previews/hearth-dark-teal.png)
+
+### Hearth Light
+
+![Hearth Light highlighting an Astro component in Cursor with orange syntax accents](./previews/hearth-light.png)
+
+### Hearth Light Azure
+
+![Hearth Light Azure highlighting an Astro component in Cursor with orange and blue syntax accents](./previews/hearth-light-azure.png)
+
+### Hearth Light Teal
+
+![Hearth Light Teal highlighting an Astro component in Cursor with orange and teal syntax accents](./previews/hearth-light-teal.png)
 
 ## Themes
 
