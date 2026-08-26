@@ -1,8 +1,9 @@
-// Generates every derived Hearth theme from the two VS Code duotone base files.
-// The accented VS Code variants repaint only callables, terminal cyan, and one
-// bracket-pair level. Those six completed themes are then translated to Zed and
-// Warp so every editor stays on the same palette. Run `node build.mjs` after
-// editing a base theme or accent value and commit the generated files.
+// Generates every derived Hearth theme from the two VS Code base files. The
+// accented IDE variants repaint only callables and one bracket-pair level, while
+// every embedded terminal shares the base theme's complete ANSI palette. Zed
+// receives all six IDE variants; Warp and Ghostty receive one theme per mode.
+// Run `node build.mjs` after editing a base theme or accent value and commit the
+// generated files.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -11,6 +12,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const themes = join(here, "themes");
 const zedThemes = join(here, "zed", "themes");
 const warpThemes = join(here, "warp");
+const ghosttyThemes = join(here, "ghostty");
 
 const ACCENTS = {
   Teal: {
@@ -46,8 +48,6 @@ for (const mode of ["dark", "light"]) {
       if (hasScope(tc, "entity.name.function")) tc.settings.foreground = fn;
       if (hasScope(tc, "entity.name.type")) tc.settings.foreground = type;
     }
-    theme.colors["terminal.ansiCyan"] = fn;
-    theme.colors["terminal.ansiBrightCyan"] = type;
     theme.colors["editorBracketHighlight.foreground4"] = type;
 
     const out = themePath(mode, title);
@@ -68,6 +68,8 @@ const VARIANTS = [
   title,
   theme: JSON.parse(readFileSync(themePath(mode, title), "utf8")),
 }));
+
+const TERMINAL_VARIANTS = VARIANTS.filter(({ title }) => title === null);
 
 const tokenSettings = (theme, scope) => {
   const token = theme.tokenColors.find((candidate) => hasScope(candidate, scope));
@@ -323,9 +325,65 @@ const toWarpYaml = ({ mode, theme }) => {
 };
 
 mkdirSync(warpThemes, { recursive: true });
-for (const variant of VARIANTS) {
-  const suffix = variant.title ? `-${variant.title.toLowerCase()}` : "";
-  const out = join(warpThemes, `hearth-${variant.mode}${suffix}.yaml`);
+for (const variant of TERMINAL_VARIANTS) {
+  const out = join(warpThemes, `hearth-${variant.mode}.yaml`);
   writeFileSync(out, toWarpYaml(variant));
+  console.log(`wrote ${out.replace(here + "/", "")}`);
+}
+
+const GHOSTTY_ANSI = [
+  "Black",
+  "Red",
+  "Green",
+  "Yellow",
+  "Blue",
+  "Magenta",
+  "Cyan",
+  "White",
+];
+
+const compositeHex = (foreground, background) => {
+  if (/^#[0-9a-f]{6}$/i.test(foreground)) return foreground;
+  if (!/^#[0-9a-f]{8}$/i.test(foreground)) {
+    throw new Error(`Expected a six- or eight-digit hex color: ${foreground}`);
+  }
+
+  const alpha = Number.parseInt(foreground.slice(7, 9), 16) / 255;
+  const channel = (offset) => {
+    const front = Number.parseInt(foreground.slice(offset, offset + 2), 16);
+    const back = Number.parseInt(background.slice(offset, offset + 2), 16);
+    return Math.round(front * alpha + back * (1 - alpha))
+      .toString(16)
+      .padStart(2, "0");
+  };
+  return `#${channel(1)}${channel(3)}${channel(5)}`;
+};
+
+const toGhosttyTheme = ({ theme }) => {
+  const c = theme.colors;
+  const lines = [];
+  for (const [index, vscodeName] of GHOSTTY_ANSI.entries()) {
+    lines.push(`palette = ${index}=${c[`terminal.ansi${vscodeName}`]}`);
+  }
+  for (const [index, vscodeName] of GHOSTTY_ANSI.entries()) {
+    lines.push(
+      `palette = ${index + 8}=${c[`terminal.ansiBright${vscodeName}`]}`,
+    );
+  }
+  lines.push(
+    `background = ${c["terminal.background"]}`,
+    `foreground = ${c["terminal.foreground"]}`,
+    `cursor-color = ${c["terminalCursor.foreground"]}`,
+    `cursor-text = ${c["terminal.background"]}`,
+    `selection-background = ${compositeHex(c["editor.selectionBackground"], c["terminal.background"])}`,
+    `selection-foreground = ${c["terminal.foreground"]}`,
+  );
+  return lines.join("\n") + "\n";
+};
+
+mkdirSync(ghosttyThemes, { recursive: true });
+for (const variant of TERMINAL_VARIANTS) {
+  const out = join(ghosttyThemes, `hearth-${variant.mode}`);
+  writeFileSync(out, toGhosttyTheme(variant));
   console.log(`wrote ${out.replace(here + "/", "")}`);
 }

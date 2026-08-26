@@ -6,6 +6,25 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-08-26
+
+### Added
+
+- Added dedicated light and dark Ghostty themes, including automatic system
+  appearance pairing instructions.
+
+### Changed
+
+- Rebuilt the shared terminal colors as a complete semantic ANSI palette for
+  shell prompts and CLI tools, anchored by Hearth Azure and Teal.
+- Consolidated Warp into dedicated light and dark terminal themes while keeping
+  all six variants for editors. Existing Azure or Teal terminal users should
+  switch to the corresponding `Hearth Dark` or `Hearth Light` theme.
+- Added explicit shared workbench colors for top-mounted activity bars, command
+  centers, and active or inactive window borders in Cursor and VS Code.
+- Changed modified-file decorations to warm brown and moved the Hearth-orange
+  active-tab indicator from the top edge to the bottom edge.
+
 ## [0.2.1] — 2026-08-23
 
 ### Changed
