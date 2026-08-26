@@ -1,8 +1,9 @@
 # Hearth
 
 Hearth is a warm color theme that keeps the interface calm and lights the code
-with a single ember. Six light and dark variants bring the same palette to VS
-Code, Cursor, Zed, Warp, and Shiki.
+with a single ember. Six light and dark editor variants are available for VS
+Code, Cursor, Zed, and Shiki; dedicated light and dark terminal themes are
+available for Warp and Ghostty.
 
 [Explore Hearth, compare every variant, and find installation instructions](https://hearth.ryanfurrer.com/).
 
@@ -45,6 +46,10 @@ functions and types, so structure stands out without turning into a rainbow.
 - **Hearth Dark Teal and Hearth Light Teal** — the same base, with teal
   functions and a lighter tint on types.
 
+The terminal palette keeps Hearth's warmth while giving every ANSI color a
+distinct role: ember red, moss green, amber yellow, Azure blue, muted magenta,
+and Teal cyan. All editor variants share this palette in their terminal.
+
 ## Install
 
 ### Visual Studio Code
@@ -84,16 +89,41 @@ A Zed extension-store listing is planned.
 
 ### Warp
 
-Copy the six files in `warp/` to your Warp custom themes directory. On macOS:
+Copy the two files in `warp/` to your Warp custom themes directory. On macOS:
 
 ```sh
 mkdir -p ~/.warp/themes/hearth
 cp warp/*.yaml ~/.warp/themes/hearth/
 ```
 
-Restart Warp if it does not discover the new themes immediately. Teal and Azure
-change the terminal's cyan pair; Warp does not expose editor syntax scopes. A
-listing in Warp's theme repository is in review.
+Restart Warp if it does not discover the new themes immediately. Warp does not
+expose editor syntax scopes, so Hearth provides one complete ANSI palette in
+light and dark modes. A listing in Warp's theme repository is in review.
+
+### Ghostty
+
+Copy the two files in `ghostty/` to Ghostty's custom themes directory:
+
+```sh
+mkdir -p ~/.config/ghostty/themes
+cp ghostty/* ~/.config/ghostty/themes/
+```
+
+Then add one variant to `~/.config/ghostty/config.ghostty` (or `config` on
+Ghostty versions before 1.2.3):
+
+```ini
+theme = hearth-dark
+```
+
+To follow the system appearance automatically, pair the corresponding light and
+dark variants:
+
+```ini
+theme = dark:hearth-dark,light:hearth-light
+```
+
+Reload Ghostty with `Cmd/Ctrl + Shift + ,` after changing the theme.
 
 ## Shiki
 
@@ -109,8 +139,8 @@ The theme files in `themes/` can also be used directly with
 ## Development
 
 Run `npm run build` after changing either base theme or an accent value. The
-build regenerates the accented VS Code themes, the Zed theme family, and all
-Warp themes from the same source palettes.
+build regenerates the accented VS Code themes, the Zed theme family, and the
+light and dark Warp and Ghostty themes from the same source palettes.
 
 Run `npm run package` to build the sideloadable VS Code extension as
 `hearth-latest.vsix`.

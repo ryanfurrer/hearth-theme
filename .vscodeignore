@@ -8,5 +8,6 @@ package-lock.json
 scripts/**
 zed/**
 warp/**
+ghostty/**
 *.vsix
 .DS_Store
