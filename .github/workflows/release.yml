@@ -67,6 +67,20 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  zed-extension:
+    name: Update Zed extension
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open Zed extension update PR
+        uses: huacnlee/zed-extension-action@v2
+        with:
+          extension-name: hearth-theme
+          zed-extensions: zed-industries/extensions
+          push-to: ryanfurrer/extensions
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+
   github-release:
     name: Publish GitHub Release
     needs: build
